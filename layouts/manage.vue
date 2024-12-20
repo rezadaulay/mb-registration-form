@@ -1,8 +1,17 @@
 <script setup lang="ts">
+useSeoMeta({
+  title: 'Admin Panel',
+//   ogTitle: 'Form Registrasi',
+//   description: 'Silahkan isi form berikut untuk dapat mengikuti event di muslim berdedikasi 7.',
+//   ogDescription: 'Silahkan isi form berikut untuk dapat mengikuti event di muslim berdedikasi 7.',
+//   ogImage: 'https://example.com/image.png',
+//   twitterCard: 'summary_large_image',
+})
+
 const sidebar: Ref<boolean> = ref(false);
 const menuItems:array = [
     { title: 'Home', path: '/manage', icon: 'home' },
-    { title: 'Jenis Acara', path: '/manage/event-type', icon: 'format-list-bulleted-type' },
+    { title: 'Jenis Acara', path: '/manage/event-types', icon: 'format-list-bulleted-type' },
     { title: 'Pendaftar', path: '/manage/registrans', icon: 'face' }
 ]
 </script>

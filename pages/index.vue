@@ -1,5 +1,7 @@
 <script setup lang="ts">
-await navigateTo('"https://muslimberdedikasi.com"')
+await navigateTo('https://muslimberdedikasi.com', {
+  external: true
+})
 </script>
 <template>
     <div>

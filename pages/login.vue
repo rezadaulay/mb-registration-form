@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import User from '@/types/user.d.ts'
+import { Userd } from '~/types/default'
 const user = useSupabaseUser()
 const { auth } = useSupabaseClient()
 
@@ -80,7 +80,7 @@ const submit = async () => {
                             type="password"
                             required
                         ></v-text-field>
-                        <v-btn class="mt-2" type="submit" color="primary" block>Submit</v-btn>
+                        <v-btn class="mt-2" type="submit" color="primary" block>Login</v-btn>
                     </v-form>
                 </v-card-text>
             </v-card>
