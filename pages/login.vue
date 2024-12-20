@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Userd } from '~/types/default'
+import type User from '~~/types/user'
 const user = useSupabaseUser()
 const { auth } = useSupabaseClient()
 
@@ -8,6 +8,8 @@ watchEffect(() => {
     navigateTo('/manage')
   }
 })
+
+
 
 useSeoMeta({
   title: 'Login',
@@ -18,26 +20,26 @@ useSeoMeta({
 //   twitterCard: 'summary_large_image',
 })
 
-const loginForm: Ref<HTMLFormElement> = ref(null)
+const loginForm: Ref<HTMLFormElement | null> = ref(null)
 
 const snackbar: Ref<boolean> = ref(false);
 const snackbarContent: Ref<string | null> = ref(null);
 
 const form: User = reactive({
-    email: null,
-    password: null,
+    email: '',
+    password: '',
 });
 
-const emailRules: boolean = [(value: string) => !!value || 'Wajib Diisi.'];
-const passwordRules: boolean = [(value: string) => !!value || 'Wajib Diisi.'];
+const emailRules: Array<(value: string) => boolean | string> = [(value: string) => !!value || 'Wajib Diisi.'];
+const passwordRules: Array<(value: string) => boolean | string> = [(value: string) => !!value || 'Wajib Diisi.'];
 
-const showSnackbar = async (message) => {
+const showSnackbar = async (message: string) => {
     snackbarContent.value = message;
     snackbar.value = true;
 }
 
 const submit = async () => {
-    const {valid, errors} = await loginForm.value.validate()
+    const {valid, errors} = await loginForm.value?.validate()
     // lastErrors.value = errors
     // console.log(errors)
     if (!valid) {

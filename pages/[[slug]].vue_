@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Registrant from '@/types/registrants.d.ts'
+import Database from '~~/types/database.types'
 const route = useRoute();
 // if (!route.params.slug) {
 //     await navigateTo('/')
