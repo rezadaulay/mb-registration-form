@@ -10,7 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@nuxtjs/supabase": "^1.4.5",
+    "flag-icons": "^7.2.3",
     "nuxt": "^3.14.1592",
+    "v-phone-input": "^4.4.0",
     "vue": "latest",
     "vue-router": "latest",
     "vuetify-nuxt-module": "^0.18.3"
