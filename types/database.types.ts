@@ -13,26 +13,30 @@ export interface Database {
         Row: {
           created_at: string | null
           id: number
+          event_type_id: number
           name: string
           phone: string
           gender: string
-          user: string | null
+          email?: string | null
+          closed: boolean | null
         }
         Insert: {
           created_at?: string | null
-          id?: number
+          event_type_id: number
           name: string
           phone: string
           gender: string
           email?: string | null
+          closed?: boolean | null
         }
         Update: {
           created_at?: string | null
-          id?: number
-          name?: string
-          phone?: string
-          gender?: string
+          event_type_id: number
+          name: string
+          phone: string
+          gender: string
           email?: string | null
+          closed?: boolean | null
         }
       },
       eventTypes: {

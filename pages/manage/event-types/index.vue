@@ -7,7 +7,7 @@ useSeoMeta({
   title: 'Daftar Jenis Acara',
 })
 
-import type EventType from '~~/types/eventType'
+// import type EventType from '~~/types/eventType'
 import type { Database } from '~~/types/database.types'
 
 const client = useSupabaseClient<Database>()
@@ -48,7 +48,7 @@ const removeEventType = async (eventType: EventType) => {
             v-for="item in eventTypes"
             :key="item.id"
           >
-            <td>{{ item.title }}</td>
+            <td><router-link :to="`/manage/registrants/${item.id}`">{{ item.title }}</router-link></td>
             <td class="text-right">
               <v-btn icon="mdi-pencil" size="x-small" class="mr-2" :to="`/manage/event-types/${item.id}`"></v-btn>
               <v-btn icon="mdi-trash-can-outline" color="error" size="x-small" @click.prevent="removeEventType(item)"></v-btn>

@@ -7,7 +7,7 @@ useSeoMeta({
   title: 'Ubah Jenis Acara',
 })
 
-import type EventType from '~~/types/eventType'
+// import type EventType from '~~/types/eventType'
 import type { Database } from '~~/types/database.types'
 const client = useSupabaseClient<Database>()
 // const user = useSupabaseUser()

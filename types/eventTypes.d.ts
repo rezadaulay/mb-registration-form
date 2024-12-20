@@ -1,5 +1,5 @@
 declare interface EventType {
-    id: number
+    id?: number
     title: string
     slug?: string
     created_at?: string

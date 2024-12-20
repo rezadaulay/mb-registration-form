@@ -12,7 +12,7 @@ const sidebar: Ref<boolean> = ref(false);
 const menuItems:Array<any> = [
     { title: 'Home', path: '/manage', icon: 'home' },
     { title: 'Jenis Acara', path: '/manage/event-types', icon: 'format-list-bulleted-type' },
-    { title: 'Pendaftar', path: '/manage/registrans', icon: 'face' }
+    // { title: 'Pendaftar', path: '/manage/registrants', icon: 'face' }
 ]
 </script>
 <template>
