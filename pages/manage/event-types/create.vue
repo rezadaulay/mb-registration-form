@@ -32,6 +32,15 @@ const showSnackbar = async (message: string) => {
     snackbar.value = true;
 }
 
+const createSlug = (input: string): string => {
+    return input
+    .toLowerCase() // Convert to lowercase
+    .trim() // Remove whitespace from both ends
+    .replace(/[^\w\s-]/g, '') // Remove non-alphanumeric characters (except spaces and hyphens)
+    .replace(/\s+/g, '-') // Replace spaces with hyphens
+    .replace(/-+/g, '-'); // Replace multiple hyphens with a single hyphen
+}
+
 const submit = async () => {
     const {valid, errors} = await createForm.value?.validate()
     if (!valid) {
@@ -41,7 +50,8 @@ const submit = async () => {
 
         const { data } = await client.from('eventTypes')
             .insert({
-                title: form.title
+                title: form.title,
+                slug: createSlug(form.title)
             })
             // .select('id, title')
             // .single()
