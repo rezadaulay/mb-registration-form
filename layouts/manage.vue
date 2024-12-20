@@ -56,11 +56,9 @@ const menuItems:Array<any> = [
       </v-toolbar-items>
     </v-toolbar> -->
     
-    <v-content>
-      <v-container style="margin-top: 80px;">
-        <slot />
-      </v-container>
-    </v-content>
+    <v-container style="margin-top: 80px;">
+      <slot />
+    </v-container>
     
   </v-app>
 </template>

@@ -3,6 +3,10 @@ definePageMeta({
   layout: 'manage'
 })
 
+useSeoMeta({
+  title: 'Daftar Jenis Acara',
+})
+
 import type EventType from '~~/types/eventType'
 import type { Database } from '~~/types/database.types'
 
@@ -26,7 +30,7 @@ const removeEventType = async (eventType: EventType) => {
   <v-card title="Jenis Acara">
     <v-card-text>
       <div class="text-right">
-        <v-btn icon="mdi-plus" size="x-small" color="primary"></v-btn>
+        <v-btn icon="mdi-plus" to="/manage/event-types/create" size="x-small" color="primary"></v-btn>
       </div>
       <v-table>
         <thead>
@@ -46,7 +50,7 @@ const removeEventType = async (eventType: EventType) => {
           >
             <td>{{ item.title }}</td>
             <td class="text-right">
-              <v-btn icon="mdi-pencil" size="x-small" class="mr-2"></v-btn>
+              <v-btn icon="mdi-pencil" size="x-small" class="mr-2" :to="`/manage/event-types/${item.id}`"></v-btn>
               <v-btn icon="mdi-trash-can-outline" color="error" size="x-small" @click.prevent="removeEventType(item)"></v-btn>
             </td>
           </tr>

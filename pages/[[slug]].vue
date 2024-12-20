@@ -1,41 +1,56 @@
 <script setup lang="ts">
-import Database from '~~/types/database.types'
-const route = useRoute();
-// if (!route.params.slug) {
-//     await navigateTo('/')
-// }
-
 useSeoMeta({
   title: 'Form Registrasi',
   ogTitle: 'Form Registrasi',
   description: 'Silahkan isi form berikut untuk dapat mengikuti event di muslim berdedikasi 7.',
   ogDescription: 'Silahkan isi form berikut untuk dapat mengikuti event di muslim berdedikasi 7.',
-//   ogImage: 'https://example.com/image.png',
-//   twitterCard: 'summary_large_image',
 })
 
-const registrationForm: Ref<HTMLFormElement> = ref(null)
+import type { Database } from '~~/types/database.types'
+const client = useSupabaseClient<Database>()
+const route = useRoute();
+if (!route.params.slug) {
+    throw createError({
+        statusCode: 404,
+        statusMessage: 'Data Not Found'
+    })
+}
+const { data, error } = await client.from('eventTypes').select().eq('slug', route.params.slug).single();
+if (error) {
+  throw createError({
+    statusCode: 500,
+    statusMessage: 'Opps.. something wrongs'
+  })
+}
+if (!data) {
+    throw createError({
+        statusCode: 404,
+        statusMessage: 'Data Not Found'
+    })
+}
+
+const registrationForm: Ref<HTMLFormElement | null> = ref(null)
 
 const snackbar: Ref<boolean> = ref(false);
 const snackbarContent: Ref<string | null> = ref(null);
 
 const form: Registrant = reactive({
-    id: null,
-    name: null,
-    phone: null,
+    name: '',
+    phone: '',
+    event_type: route.params.slug,
     gender: 'pria',
 });
 
-const nameRules: boolean = [(value: string) => !!value || 'Wajib Diisi.'];
-const phoneRules: boolean = [(value: string) => !!value || 'Wajib Diisi.'];
+const nameRules: Array<(value: string) => boolean | string> = [(value: string) => !!value || 'Wajib Diisi.'];
+const phoneRules: Array<(value: string) => boolean | string> = [(value: string) => !!value || 'Wajib Diisi.'];
 
-const showSnackbar = async (message) => {
+const showSnackbar = async (message: string) => {
     snackbarContent.value = message;
     snackbar.value = true;
 }
 
 const submit = async () => {
-    const {valid, errors} = await registrationForm.value.validate()
+    const {valid, errors} = await registrationForm.value?.validate()
     // lastErrors.value = errors
     console.log(errors)
     if (!valid) {

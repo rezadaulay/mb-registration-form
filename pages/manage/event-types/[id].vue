@@ -4,13 +4,17 @@ definePageMeta({
 })
 
 useSeoMeta({
-  title: 'Tambah Jenis Acara',
+  title: 'Ubah Jenis Acara',
 })
 
 import type EventType from '~~/types/eventType'
 import type { Database } from '~~/types/database.types'
 const client = useSupabaseClient<Database>()
-const user = useSupabaseUser()
+// const user = useSupabaseUser()
+const route = useRoute()
+if (!route.params.id) {
+    await navigateTo('/manage/event-types')
+}
 
 // import type { Database } from '@/types/database.types'
 
@@ -21,8 +25,22 @@ const createForm: Ref<HTMLFormElement | null> = ref(null)
 const snackbar: Ref<boolean> = ref(false);
 const snackbarContent: Ref<string | null> = ref(null);
 
+const { data, error } = await client.from('eventTypes').select().eq('id', route.params.id).single();
+if (error) {
+  throw createError({
+    statusCode: 500,
+    statusMessage: 'Opps.. something wrongs'
+  })
+}
+if (!data) {
+    throw createError({
+        statusCode: 404,
+        statusMessage: 'Data Not Found'
+    })
+}
+
 const form: EventType = reactive({
-    title: '',
+    title: data.title,
 });
 
 const titleRules: Array<(value: string) => boolean | string> = [(value: string) => !!value || 'Wajib Diisi.'];
@@ -49,10 +67,10 @@ const submit = async () => {
         loading.value = true
 
         const { data } = await client.from('eventTypes')
-            .insert({
+            .update({
                 title: form.title,
                 slug: createSlug(form.title)
-            })
+            }).eq('id', route.params.id)
             // .select('id, title')
             // .single()
 
@@ -72,7 +90,7 @@ const submit = async () => {
     <div class="d-flex justify-center align-center h-100 form-container">
         <div class="w-100">
             <!-- <img src="https://muslimberdedikasi.com/wp-content/uploads/2024/11/MB-7-Logo-Text-1280x219.png" alt="" style="max-width: 100%;" class="mb-2"> -->
-            <v-card title="Tambah Jenis Acara">
+            <v-card title="Ubah Jenis Acara">
                 <v-card-text>
                     <v-form @submit.prevent="submit" ref="createForm">
                         <div></div>

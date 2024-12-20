@@ -1,5 +1,5 @@
-declare interface Registrant {
-    id: number
+export default interface Registrant {
+    id?: number
     name: string
     phone: string
     event_type: number,
