@@ -15,7 +15,7 @@ if (!route.params.slug) {
 }
 
 const { data } = await useFetch(`/api/event-types/${route.params.slug}`);
-if (!data) {
+if (!data || data.value) {
     throw createError({
         statusCode: 404,
         statusMessage: 'Data Not Found'
